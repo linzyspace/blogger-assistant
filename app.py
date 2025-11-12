@@ -5,6 +5,11 @@ import random
 app = Flask(__name__)
 CORS(app)
 
+#blog_content with keyword-based responses with mulitiple options from blog posts or pages = {
+("ai", "what is ai", "artificial intelligent", "intelligence", "lookup ai", "look up ai", "what is good about your blog":[
+"Hello! Welcome to my blog! This post talks about me and why I created Look Up AI blog. check out this full article about me https://lookupai.blogspot.com/2025/11/look-up-ai-exploring-future-of.html",
+"My blog is just to share my personal experience exploring the artificial intelligent as I research the field!"]} 
+
 # Keyword-based responses with multiple options
 keyword_responses = {
     ("hi", "hello", "hey"): [
@@ -72,3 +77,4 @@ def chat():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
