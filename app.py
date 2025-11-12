@@ -2,7 +2,15 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin requests from Blogger
+CORS(app)
+
+# Predefined responses
+responses = {
+    "hi": "Hello! How can I help you today?",
+    "hello": "Hi there! How’s it going?",
+    "how are you": "I'm a bot, so I don't have feelings, but I'm ready to chat!",
+    "bye": "Goodbye! Have a great day!"
+}
 
 @app.route("/")
 def home():
@@ -10,17 +18,16 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()  # Get the message from Blogger
-    message = data.get("message", "").strip()
+    data = request.get_json()
+    message = data.get("message", "").strip().lower()  # lowercase for matching
 
     if not message:
         return jsonify({"reply": "I didn't get that!"})
 
-    # Example bot logic — replace this with your own
-    reply = f"You said: {message}"
+    # Check if we have a predefined response
+    reply = responses.get(message, "I'm not sure how to respond to that.")
 
     return jsonify({"reply": reply})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-
